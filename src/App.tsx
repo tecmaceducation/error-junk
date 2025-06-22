@@ -14,7 +14,16 @@ import Enquiry from "./pages/Enquiry";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
-
+const getRedirectedPath = () => {
+  const search = window.location.search;
+  if (search.startsWith("?/")) {
+    const pathname = search.slice(2).split("&")[0];
+    const decoded = decodeURIComponent(pathname);
+    window.history.replaceState(null, "", decoded);
+  }
+};
+getRedirectedPath();
+// This function checks if the URL starts with "?" and redirects to the correct path
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
